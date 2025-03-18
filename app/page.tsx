@@ -1,7 +1,94 @@
+"use client";
 import Image from "next/image";
 import PageContainer from "./components/PageContainer";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import $ from "jquery";
+
+// Import Chart.js dynamically to avoid SSR issues
+const Chart = dynamic(() => import("chart.js/auto"), { ssr: false });
 
 export default function Home() {
+  useEffect(() => {
+    // Initialize charts after component mounts
+    initRevenueChart();
+    initTrafficSourcesChart();
+  }, []);
+
+  // Revenue overview chart initialization
+  const initRevenueChart = () => {
+    const ctx = document.getElementById("revenueChart");
+    if (!ctx) return;
+    
+    const chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور"],
+        datasets: [{
+          label: "درآمد",
+          data: [12500, 19200, 15700, 24500, 21300, 24345],
+          borderColor: "#3b82f6",
+          backgroundColor: "rgba(59, 130, 246, 0.1)",
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "top",
+            align: "end"
+          }
+        }
+      }
+    });
+    
+    // Use jQuery to handle resize
+    $(window).on("resize", function() {
+      chart.resize();
+    });
+  };
+
+  // Traffic sources chart initialization
+  const initTrafficSourcesChart = () => {
+    const ctx = document.getElementById("trafficChart");
+    if (!ctx) return;
+    
+    const chart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["جستجوی ارگانیک", "شبکه‌های اجتماعی", "ارجاع", "مستقیم", "سایر"],
+        datasets: [{
+          data: [35, 25, 20, 15, 5],
+          backgroundColor: [
+            "#3b82f6", // آبی
+            "#10b981", // سبز
+            "#8b5cf6", // بنفش
+            "#f59e0b", // نارنجی
+            "#6b7280"  // خاکستری
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    });
+    
+    // Use jQuery to handle resize
+    $(window).on("resize", function() {
+      chart.resize();
+    });
+  };
+
   return (
     <PageContainer pageTitle="داشبورد">
       <div className="min-h-screen">
@@ -64,15 +151,15 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 lg:col-span-2">
             <h3 className="text-lg font-semibold mb-4">نمای کلی درآمد</h3>
-            <div className="h-80 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded">
-              <p className="text-gray-500 dark:text-gray-400">محل نمودار درآمد</p>
+            <div className="h-80">
+              <canvas id="revenueChart"></canvas>
             </div>
           </div>
           
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold mb-4">منابع ترافیک</h3>
-            <div className="h-80 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded">
-              <p className="text-gray-500 dark:text-gray-400">محل نمودار دایره‌ای</p>
+            <div className="h-80">
+              <canvas id="trafficChart"></canvas>
             </div>
           </div>
         </div>
