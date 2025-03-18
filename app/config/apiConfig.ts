@@ -1,5 +1,5 @@
 const BASE_URL = "http://127.0.0.1:8000/api";
-
+// this function is used to make api requests
 const apiRequest = async (
     method: string,
     endpoint: string,
@@ -27,6 +27,14 @@ const apiRequest = async (
     return response.json();
 };
 
+// this is the api object that is used to make api requests
+/*
+an example usage of the api object
+const data = await api.get("/users", {page: 1, limit: 10});
+const newUser = await api.post("/users", {name: "John Doe", email: "john@doe.com"});
+const updatedUser = await api.put("/users/1", {name: "John Doe", email: "john@doe.com"});
+const deletedUser = await api.delete("/users/1");
+*/
 export const api = {
     get: (endpoint: string, params?: any) => {
         const queryString = params ? `?${new URLSearchParams(params).toString()}` : "";
@@ -42,5 +50,4 @@ export const api = {
         return apiRequest("DELETE", endpoint);
     },
 };
-
 
