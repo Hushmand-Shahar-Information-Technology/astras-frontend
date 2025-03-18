@@ -39,35 +39,55 @@ export default function RootLayout({
         <div className="flex h-screen overflow-hidden bg-gray-100">
           {/* Sidebar - Fixed height */}
           <aside className="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-6 h-full">
-            <h1 className="text-xl font-semibold">برنامه من</h1>
+            <h1 className="text-xl font-semibold">استراس</h1>
             <nav className="space-y-4">
               <a
                 href="/"
                 className={`block p-2 rounded-lg ${
-                  typeof window !== "undefined" && window.location.pathname === "/" 
-                    ? "bg-blue-500" 
+                  typeof window !== "undefined" &&
+                  window.location.pathname === "/"
+                    ? "bg-blue-500"
                     : "hover:bg-blue-500"
                 }`}
               >
                 <i className="ki-solid ki-home fs-2 me-2"></i>
-                خانه
+                آمریت خط استیشن
               </a>
               <a
-                href="/about"
-                className={`block p-2 rounded-lg ${
-                  typeof window !== "undefined" && window.location.pathname === "/about" 
-                    ? "bg-blue-500" 
-                    : "hover:bg-blue-500"
-                }`}
+                href="/"
+                className="block p-2 rounded-lg"
               >
-                <i className="ki-solid ki-information fs-2 me-2"></i>
-                درباره ما
+                <i className="ki-solid ki-home fs-2 me-2"></i>
+                آمریت پورت نمبر یک
               </a>
+              <a
+                href="/"
+                className="block p-2 rounded-lg"
+              >
+                <i className="ki-solid ki-home fs-2 me-2"></i>
+                آمریت پورت نمبر دو
+              </a>
+              <a
+                href="/"
+                className="block p-2 rounded-lg"
+              >
+                <i className="ki-solid ki-home fs-2 me-2"></i>
+                آمریت پورت نمبر سه
+              </a>
+              <a
+                href="/"
+                className="block p-2 rounded-lg"
+              >
+                <i className="ki-solid ki-home fs-2 me-2"></i>
+                آمریت پورت نمبر چهار
+              </a>
+
               <a
                 href="/contact"
                 className={`block p-2 rounded-lg ${
-                  typeof window !== "undefined" && window.location.pathname === "/contact" 
-                    ? "bg-blue-500" 
+                  typeof window !== "undefined" &&
+                  window.location.pathname === "/contact"
+                    ? "bg-blue-500"
                     : "hover:bg-blue-500"
                 }`}
               >
@@ -80,7 +100,8 @@ export default function RootLayout({
           {/* Main Content - Scrollable */}
           <main className="flex-1 flex flex-col h-full">
             <header className="p-8 bg-white">
-              {typeof window !== "undefined" && window.location.pathname.split('/').pop()}
+              {typeof window !== "undefined" &&
+                window.location.pathname.split("/").pop()}
             </header>
             <div className="flex-1 p-8 overflow-y-auto bg-white">
               {children}
