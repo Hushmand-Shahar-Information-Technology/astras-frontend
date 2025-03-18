@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { usePathname } from "next/navigation";
 import "./globals.css";
+import type { Metadata } from "next";
 
 // Import fonts
 const geistSans = Geist({
@@ -16,13 +17,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
+// export const metadata: Metadata = {
+//   title: "برنامه من",
+//   description: "برنامه مدیریت داشبورد",
+// };
 
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const pathname = usePathname();
   return (
     <html lang="fa" dir="rtl">
       <head>
-        <title>برنامه Next.js من</title>
         <meta name="description" content="یک رابط کاربری زیبا با نوار کناری" />
       </head>
       <body
@@ -34,19 +42,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <h1 className="text-xl font-semibold">برنامه من</h1>
             <nav className="space-y-4">
               <a
-                href="#"
+                href="/"
                 className={`block p-2 rounded-lg ${
-                  pathname === "/" ? "bg-blue-500" : "hover:bg-blue-500"
+                  typeof window !== "undefined" && window.location.pathname === "/" 
+                    ? "bg-blue-500" 
+                    : "hover:bg-blue-500"
                 }`}
               >
                 <i className="ki-solid ki-home fs-2 me-2"></i>
                 خانه
               </a>
               <a
-                href="#"
+                href="/about"
                 className={`block p-2 rounded-lg ${
-                  pathname === "/about"
-                    ? "bg-blue-500"
+                  typeof window !== "undefined" && window.location.pathname === "/about" 
+                    ? "bg-blue-500" 
                     : "hover:bg-blue-500"
                 }`}
               >
@@ -54,10 +64,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 درباره ما
               </a>
               <a
-                href="#"
+                href="/contact"
                 className={`block p-2 rounded-lg ${
-                  pathname === "/contact"
-                    ? "bg-blue-500"
+                  typeof window !== "undefined" && window.location.pathname === "/contact" 
+                    ? "bg-blue-500" 
                     : "hover:bg-blue-500"
                 }`}
               >
@@ -70,9 +80,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {/* Main Content - Scrollable */}
           <main className="flex-1 flex flex-col h-full">
             <header className="p-8 bg-white">
-              <h2 className="text-2xl font-semibold text-gray-800">
-                به برنامه من خوش آمدید
-              </h2>
+              {typeof window !== "undefined" && window.location.pathname.split('/').pop()}
             </header>
             <div className="flex-1 p-8 overflow-y-auto bg-white">
               {children}
@@ -82,6 +90,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </body>
     </html>
   );
-};
-
-export default Layout;
+}
