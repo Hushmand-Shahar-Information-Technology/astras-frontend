@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
+import Person3Icon from "@mui/icons-material/Person3";
 export default function Sidebar() {
   const pathname = usePathname();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -83,7 +83,7 @@ export default function Sidebar() {
         >
           <div className="flex-shrink-0">
             <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-              <i className="ki-solid ki-user text-xl"></i>
+              <Person3Icon className="text-xl" />
             </div>
           </div>
           <div className="flex-1 text-right">
