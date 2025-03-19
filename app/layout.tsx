@@ -22,11 +22,7 @@ const geistMono = Geist_Mono({
 //   description: "برنامه مدیریت داشبورد",
 // };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   return (
     <html lang="fa" dir="rtl">
@@ -50,31 +46,19 @@ export default function RootLayout({
                 <i className="ki-solid ki-home me-2"></i>
                 آمریت خط استیشن
               </a>
-              <a
-                href="/"
-                className="block p-2 rounded-lg"
-              >
+              <a href="/" className="block p-2 rounded-lg">
                 <i className="ki-solid ki-home fs-2 me-2"></i>
                 آمریت پورت نمبر یک
               </a>
-              <a
-                href="/"
-                className="block p-2 rounded-lg"
-              >
+              <a href="/" className="block p-2 rounded-lg">
                 <i className="ki-solid ki-home fs-2 me-2"></i>
                 آمریت پورت نمبر دو
               </a>
-              <a
-                href="/"
-                className="block p-2 rounded-lg"
-              >
+              <a href="/" className="block p-2 rounded-lg">
                 <i className="ki-solid ki-home fs-2 me-2"></i>
                 آمریت پورت نمبر سه
               </a>
-              <a
-                href="/"
-                className="block p-2 rounded-lg"
-              >
+              <a href="/" className="block p-2 rounded-lg">
                 <i className="ki-solid ki-home fs-2 me-2"></i>
                 آمریت پورت نمبر چهار
               </a>
