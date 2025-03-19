@@ -3,96 +3,254 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Person3Icon from "@mui/icons-material/Person3";
+import { 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText, 
+  Collapse,
+  Box,
+  Typography,
+  Divider
+} from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import HomeIcon from "@mui/icons-material/Home";
+import CallIcon from "@mui/icons-material/Call";
+
+const drawerWidth = 280;
+
 export default function Sidebar() {
   const pathname = usePathname();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+
+  const toggleSubMenu = (menuId: string) => {
+    setOpenSubMenu(openSubMenu === menuId ? null : menuId);
+  };
   
   return (
-    <aside className="w-64 bg-gray-800 text-white flex flex-col p-4 h-full">
-      {/* Logo and Navigation - using flex-1 to push profile to bottom */}
-      <div className="flex-1 space-y-6">
-        <h1 className="text-xl font-semibold">استراس</h1>
-        <nav className="space-y-4">
-          <a
-            href="/"
-            className={`flex items-center p-2 rounded-lg ${
-              pathname === "/" ? "bg-blue-500" : "hover:bg-blue-500"
-            }`}
-          >
-            <i className="ki-solid ki-home me-2"></i>
-            آمریت خط استیشن
-          </a>
-          <a href="/" className="block p-2 rounded-lg">
-            <i className="ki-solid ki-home fs-2 me-2"></i>
-            آمریت پورت نمبر یک
-          </a>
-          <a href="/" className="block p-2 rounded-lg">
-            <i className="ki-solid ki-home fs-2 me-2"></i>
-            آمریت پورت نمبر دو
-          </a>
-          <a href="/" className="block p-2 rounded-lg">
-            <i className="ki-solid ki-home fs-2 me-2"></i>
-            آمریت پورت نمبر سه
-          </a>
-          <a href="/" className="block p-2 rounded-lg">
-            <i className="ki-solid ki-home fs-2 me-2"></i>
-            آمریت پورت نمبر چهار
-          </a>
-          <a
-            href="/contact"
-            className={`block p-2 rounded-lg ${
-              typeof window !== "undefined" &&
-              window.location.pathname === "/contact"
-                ? "bg-blue-500"
-                : "hover:bg-blue-500"
-            }`}
-          >
-            <i className="ki-solid ki-call fs-2 me-2"></i>
-            تماس با ما
-          </a>
-        </nav>
-      </div>
-
-      {/* Profile Section - Fixed at bottom */}
-      <div className="relative border-t border-gray-700 pt-4 mt-4">
-        {/* Profile Dropdown Menu */}
-        {isProfileMenuOpen && (
-          <div className="absolute bottom-full mb-2 w-full bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-            <div className="py-1">
-              <a href="/profile" className="flex items-center px-4 py-2 hover:bg-gray-600">
-                <i className="ki-solid ki-user me-2"></i>
-                پروفایل
-              </a>
-              <a href="/settings" className="flex items-center px-4 py-2 hover:bg-gray-600">
-                <i className="ki-solid ki-setting-2 me-2"></i>
-                تنظیمات
-              </a>
-              <div className="border-t border-gray-600"></div>
-              <button className="flex items-center w-full px-4 py-2 hover:bg-gray-600 text-red-400">
-                <i className="ki-solid ki-logout me-2"></i>
-                خروج
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Profile Button */}
-        <button 
-          onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-          className="flex items-center w-full space-x-3 hover:bg-gray-700 rounded-lg p-2 transition-colors"
+    <Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+          bgcolor: 'rgb(31 41 55)',
+          color: 'white',
+          direction: 'rtl',
+          borderLeft: 'none', // Remove left border for RTL
+        },
+      }}
+      variant="permanent"
+      anchor="right"
+    >
+      <Box sx={{ p: 2 }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 3, 
+            fontWeight: 600,
+            textAlign: 'right',
+            pr: 1
+          }}
         >
-          <div className="flex-shrink-0">
-            <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-              <Person3Icon className="text-xl" />
-            </div>
-          </div>
-          <div className="flex-1 text-right">
-            <div className="font-medium">احمد محمدی</div>
-            <div className="text-sm text-gray-400">مدیر سیستم</div>
-          </div>
-          <i className={`ki-solid ki-arrow-up transform transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`}></i>
-        </button>
-      </div>
-    </aside>
+          استراس
+        </Typography>
+        
+        <List component="nav" sx={{ pr: 0 }}>
+          {/* Station Menu with Submenu */}
+          <ListItem disablePadding>
+            <ListItemButton 
+              onClick={() => toggleSubMenu('station')}
+              selected={pathname === "/"}
+              sx={{
+                '&.Mui-selected': { 
+                  bgcolor: 'rgb(59 130 246)',
+                  '&:hover': { bgcolor: 'rgb(59 130 246)' }
+                },
+                '&:hover': { bgcolor: 'rgb(59 130 246 / 0.8)' },
+                borderRadius: 1,
+                py: 1.5,
+              }}
+            >
+              <ListItemIcon sx={{ 
+                color: 'white',
+                minWidth: 40, // Reduce icon spacing
+                mr: -1 // Adjust icon position for RTL
+              }}>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText 
+                primary="آمریت خط استیشن"
+                sx={{ '& .MuiTypography-root': { fontWeight: 500 } }}
+              />
+              {openSubMenu === 'station' ? 
+                <ExpandLess sx={{ ml: -1 }} /> : 
+                <ExpandMore sx={{ ml: -1 }} />
+              }
+            </ListItemButton>
+          </ListItem>
+
+          <Collapse in={openSubMenu === 'station'} timeout="auto">
+            <List component="div" sx={{ pr: 3, mt: 1 }}>
+              <ListItemButton 
+                sx={{ 
+                  borderRadius: 1,
+                  mb: 0.5,
+                  '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' }
+                }}
+              >
+                <ListItemText 
+                  primary="زیر منو ۱"
+                  sx={{ 
+                    '& .MuiTypography-root': { 
+                      fontSize: '0.95rem',
+                      color: 'rgb(209 213 219)'
+                    }
+                  }}
+                />
+              </ListItemButton>
+              <ListItemButton 
+                sx={{ 
+                  borderRadius: 1,
+                  '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' }
+                }}
+              >
+                <ListItemText 
+                  primary="زیر منو ۲"
+                  sx={{ 
+                    '& .MuiTypography-root': { 
+                      fontSize: '0.95rem',
+                      color: 'rgb(209 213 219)'
+                    }
+                  }}
+                />
+              </ListItemButton>
+            </List>
+          </Collapse>
+
+          {/* Other menu items */}
+          {['یک', 'دو', 'سه', 'چهار'].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton
+                sx={{
+                  '&:hover': { bgcolor: 'rgb(59 130 246 / 0.8)' },
+                  borderRadius: 1,
+                  my: 0.5,
+                  py: 1.5,
+                }}
+              >
+                <ListItemIcon sx={{ 
+                  color: 'white',
+                  minWidth: 40,
+                  mr: -1
+                }}>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={`آمریت پورت نمبر ${text}`}
+                  sx={{ '& .MuiTypography-root': { fontWeight: 500 } }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+
+          {/* Contact Us */}
+          <ListItem disablePadding sx={{ mt: 1 }}>
+            <ListItemButton
+              sx={{
+                '&:hover': { bgcolor: 'rgb(59 130 246 / 0.8)' },
+                borderRadius: 1,
+                py: 1.5,
+              }}
+            >
+              <ListItemIcon sx={{ 
+                color: 'white',
+                minWidth: 40,
+                mr: -1
+              }}>
+                <CallIcon />
+              </ListItemIcon>
+              <ListItemText 
+                primary="تماس با ما"
+                sx={{ '& .MuiTypography-root': { fontWeight: 500 } }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
+
+      {/* Profile Section */}
+      <Box sx={{ 
+        mt: 'auto', 
+        p: 2, 
+        borderTop: 1, 
+        borderColor: 'rgba(255, 255, 255, 0.12)'
+      }}>
+        <ListItemButton
+          onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+          sx={{ 
+            borderRadius: 1,
+            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' }
+          }}
+        >
+          <Box 
+            sx={{ 
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              bgcolor: 'rgba(255, 255, 255, 0.16)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              ml: 2
+            }}
+          >
+            <Person3Icon />
+          </Box>
+          <ListItemText 
+            primary="احمد محمدی"
+            secondary="مدیر سیستم"
+            sx={{
+              '& .MuiTypography-primary': { fontWeight: 500 },
+              '& .MuiTypography-secondary': { color: 'rgb(156 163 175)' }
+            }}
+          />
+          {isProfileMenuOpen ? 
+            <ExpandLess sx={{ ml: -1 }} /> : 
+            <ExpandMore sx={{ ml: -1 }} />
+          }
+        </ListItemButton>
+        
+        <Collapse in={isProfileMenuOpen} timeout="auto">
+          <List component="div" sx={{ mt: 1 }}>
+            <ListItemButton sx={{ 
+              borderRadius: 1,
+              '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' }
+            }}>
+              <ListItemText primary="پروفایل" />
+            </ListItemButton>
+            <ListItemButton sx={{ 
+              borderRadius: 1,
+              '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' }
+            }}>
+              <ListItemText primary="تنظیمات" />
+            </ListItemButton>
+            <Divider sx={{ my: 1, borderColor: 'rgba(255, 255, 255, 0.12)' }} />
+            <ListItemButton sx={{ 
+              color: '#ef4444',
+              borderRadius: 1,
+              '&:hover': { bgcolor: 'rgba(239, 68, 68, 0.08)' }
+            }}>
+              <ListItemText primary="خروج" />
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </Box>
+    </Drawer>
   );
 }
