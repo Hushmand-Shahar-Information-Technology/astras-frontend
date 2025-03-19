@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import PageContainer from "./components/PageContainer";
 import Button from "@mui/material/Button";
@@ -7,11 +8,93 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import { useEffect } from "react";
+import { BarChart } from "@mui/x-charts/BarChart";
 export default function Home() {
+  useEffect(() => {
+    // Initialize charts after component mounts
+    initRevenueChart();
+    initTrafficSourcesChart();
+  }, []);
+
+  // Revenue overview chart initialization
+  const initRevenueChart = () => {
+    const ctx = document.getElementById("revenueChart");
+    if (!ctx) return;
+    
+    const chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور"],
+        datasets: [{
+          label: "درآمد",
+          data: [12500, 19200, 15700, 24500, 21300, 24345],
+          borderColor: "#3b82f6",
+          backgroundColor: "rgba(59, 130, 246, 0.1)",
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "top",
+            align: "end"
+          }
+        }
+      }
+    });
+    
+    // Use jQuery to handle resize
+    $(window).on("resize", function() {
+      chart.resize();
+    });
+  };
+
+  // Traffic sources chart initialization
+  const initTrafficSourcesChart = () => {
+    const ctx = document.getElementById("trafficChart");
+    if (!ctx) return;
+    
+    const chart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["جستجوی ارگانیک", "شبکه‌های اجتماعی", "ارجاع", "مستقیم", "سایر"],
+        datasets: [{
+          data: [35, 25, 20, 15, 5],
+          backgroundColor: [
+            "#3b82f6", // آبی
+            "#10b981", // سبز
+            "#8b5cf6", // بنفش
+            "#f59e0b", // نارنجی
+            "#6b7280"  // خاکستری
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    });
+    
+    // Use jQuery to handle resize
+    $(window).on("resize", function() {
+      chart.resize();
+    });
+  };
+
   return (
     <PageContainer pageTitle="داشبورد">
       <div className="min-h-screen">
-        <Fab color="primary" aria-label="add">
+        {/* <Fab color="primary" aria-label="add">
           <AddIcon />
         </Fab>
         <Fab color="secondary" aria-label="edit">
@@ -24,7 +107,7 @@ export default function Home() {
         <Fab disabled aria-label="like">
           <FavoriteIcon />
         </Fab>
-        <Button variant="contained">Testing Button </Button>
+        <Button variant="contained">Testing Button </Button> */}
         {/* کارت‌های آماری */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
@@ -111,11 +194,28 @@ export default function Home() {
         {/* بخش نمودارها */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4">نمای کلی درآمد</h3>
-            <div className="h-80 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded">
-              <p className="text-gray-500 dark:text-gray-400">
-                محل نمودار درآمد
-              </p>
+            <h3 className="text-lg font-semibold mb-4">نمای کلی واردات ( به اساس ماه )</h3>
+            <div className="w-full h-[300px]">
+              <BarChart
+                xAxis={[
+                  {
+                    id: 'barCategories',
+                    data: ['حمل', 'ثور', 'جوزا', 'سرطان', 'اسد', 'سنبله', 'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت'],
+                    scaleType: 'band',
+                  },
+                ]}
+                series={[
+                  {
+                    data: [2, 5, 3,3,4,5,6,7,8,9,10,11],
+                  },
+                ]}
+                width={undefined}
+                height={undefined}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
             </div>
           </div>
 
