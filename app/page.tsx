@@ -8,6 +8,8 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import { useEffect } from "react";
+import { BarChart } from "@mui/x-charts/BarChart";
 export default function Home() {
   useEffect(() => {
     // Initialize charts after component mounts
@@ -192,11 +194,28 @@ export default function Home() {
         {/* بخش نمودارها */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4">نمای کلی درآمد</h3>
-            <div className="h-80 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded">
-              <p className="text-gray-500 dark:text-gray-400">
-                محل نمودار درآمد
-              </p>
+            <h3 className="text-lg font-semibold mb-4">نمای کلی واردات ( به اساس ماه )</h3>
+            <div className="w-full h-[300px]">
+              <BarChart
+                xAxis={[
+                  {
+                    id: 'barCategories',
+                    data: ['حمل', 'ثور', 'جوزا', 'سرطان', 'اسد', 'سنبله', 'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت'],
+                    scaleType: 'band',
+                  },
+                ]}
+                series={[
+                  {
+                    data: [2, 5, 3,3,4,5,6,7,8,9,10,11],
+                  },
+                ]}
+                width={undefined}
+                height={undefined}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
             </div>
           </div>
 
