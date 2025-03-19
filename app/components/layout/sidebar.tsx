@@ -3,13 +3,15 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Person3Icon from "@mui/icons-material/Person3";
-import { 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemButton, 
-  ListItemIcon, 
-  ListItemText, 
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Collapse,
   Box,
   Typography,
@@ -247,7 +249,10 @@ export default function Sidebar() {
                   >
                     <KeyboardArrowLeftIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText onClick={() => router.push("/TrainStation")} primary="فورم ثبت اطلاعات" />
+                  <ListItemText
+                    onClick={() => router.push("/TrainStation")}
+                    primary="فورم ثبت اطلاعات"
+                  />
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemIcon
