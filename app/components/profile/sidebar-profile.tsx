@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Collapse, List, ListItemButton, ListItemText, Divider } from "@mui/material";
+import { Box, Collapse, List, ListItemButton, ListItemText, Divider, IconButton } from "@mui/material";
 import Person3Icon from "@mui/icons-material/Person3";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -14,7 +14,40 @@ export default function SideBarProfile({ isMiniDrawer }: SideBarProfileProps) {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   if (isMiniDrawer) {
-    return null; // Don't render anything in mini mode
+    return (
+      <Box
+        sx={{
+          mt: "auto",
+          p: 2,
+          borderTop: 1,
+          borderColor: "rgba(255, 255, 255, 0.12)",
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <ListItemButton
+          sx={{
+            minWidth: 40,
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            p: 0,
+            justifyContent: 'center',
+            bgcolor: 'rgba(255, 255, 255, 0.16)',
+            '&:hover': { 
+              bgcolor: 'rgba(255, 255, 255, 0.24)',
+            },
+          }}
+        >
+          <Person3Icon 
+            sx={{ 
+              color: 'white',
+              fontSize: 20,
+            }} 
+          />
+        </ListItemButton>
+      </Box>
+    );
   }
 
   return (
