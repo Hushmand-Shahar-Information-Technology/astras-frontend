@@ -94,7 +94,7 @@ export default function Home() {
   return (
     <PageContainer pageTitle="داشبورد">
       <div className="min-h-screen">
-        <Fab color="primary" aria-label="add">
+        {/* <Fab color="primary" aria-label="add">
           <AddIcon />
         </Fab>
         <Fab color="secondary" aria-label="edit">
@@ -107,7 +107,7 @@ export default function Home() {
         <Fab disabled aria-label="like">
           <FavoriteIcon />
         </Fab>
-        <Button variant="contained">Testing Button </Button>
+        <Button variant="contained">Testing Button </Button> */}
         {/* کارت‌های آماری */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
