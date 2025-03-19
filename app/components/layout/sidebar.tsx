@@ -3,14 +3,13 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Person3Icon from "@mui/icons-material/Person3";
-import Link from "next/link";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
+import { 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText, 
   Collapse,
   Box,
   Typography,
@@ -35,6 +34,7 @@ const miniDrawerWidth = 65;
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
   const [isMiniDrawer, setIsMiniDrawer] = useState(false);
@@ -247,7 +247,7 @@ export default function Sidebar() {
                   >
                     <KeyboardArrowLeftIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText primary="زیر منو ۱" />
+                  <ListItemText onClick={() => router.push("/TrainStation")} primary="فورم ثبت اطلاعات" />
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemIcon
@@ -255,7 +255,7 @@ export default function Sidebar() {
                   >
                     <KeyboardArrowLeftIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText primary="زیر منو ۲" />
+                  <ListItemText primary="لیست فورم ها" />
                 </ListItemButton>
               </List>
             </Collapse>
