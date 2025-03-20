@@ -244,20 +244,16 @@ export default function Sidebar() {
             <Collapse in={openSubMenu === "station"} timeout="auto">
               <List component="div" sx={{ pr: 3, mt: 1 }}>
                 <ListItemButton>
-                  <ListItemIcon
-                    sx={{ color: "rgb(209 213 219)", minWidth: 32 }}
-                  >
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
                     <KeyboardArrowLeftIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText
-                    onClick={() => router.push("/TrainStation")}
+                  <ListItemText 
                     primary="فورم ثبت اطلاعات"
+                    onClick={() => router.push("/TrainStation")}
                   />
                 </ListItemButton>
                 <ListItemButton>
-                  <ListItemIcon
-                    sx={{ color: "rgb(209 213 219)", minWidth: 32 }}
-                  >
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
                     <KeyboardArrowLeftIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText primary="لیست فورم ها" />
@@ -268,6 +264,7 @@ export default function Sidebar() {
 
           <ListItem disablePadding>
             <ListItemButton
+              onClick={() => !isMiniDrawer && toggleSubMenu("port1")}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -277,29 +274,55 @@ export default function Sidebar() {
                 justifyContent: isMiniDrawer ? "center" : "initial",
               }}
             >
-              <ListItemIcon
-                sx={{
-                  color: "white",
-                  minWidth: 0,
-                  mr: isMiniDrawer ? 0 : -1,
-                  justifyContent: "center",
-                }}
-              >
+              <ListItemIcon sx={{
+                color: "white",
+                minWidth: 0,
+                mr: isMiniDrawer ? 0 : -1,
+                justifyContent: "center",
+              }}>
                 <LocalShippingIcon />
               </ListItemIcon>
               {!isMiniDrawer && (
-                <Link href="/port_1">
-                  <ListItemText
+                <>
+                  <ListItemText 
                     primary="آمریت پورت نمبر یک"
                     sx={{ "& .MuiTypography-root": { fontWeight: 500 } }}
                   />
-                </Link>
+                  {openSubMenu === "port1" ? (
+                    <ExpandLess sx={{ ml: -1 }} />
+                  ) : (
+                    <ExpandMore sx={{ ml: -1 }} />
+                  )}
+                </>
               )}
             </ListItemButton>
           </ListItem>
 
+          {!isMiniDrawer && (
+            <Collapse in={openSubMenu === "port1"} timeout="auto">
+              <List component="div" sx={{ pr: 3, mt: 1 }}>
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
+                    <KeyboardArrowLeftIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText 
+                    primary="فورم ایجاد"
+                    onClick={() => router.push("/port_1/create")}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
+                    <KeyboardArrowLeftIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="لیست فورم ها" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          )}
+
           <ListItem disablePadding>
             <ListItemButton
+              onClick={() => !isMiniDrawer && toggleSubMenu("port2")}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -309,26 +332,51 @@ export default function Sidebar() {
                 justifyContent: isMiniDrawer ? "center" : "initial",
               }}
             >
-              <ListItemIcon
-                sx={{
-                  color: "white",
-                  minWidth: 0,
-                  mr: isMiniDrawer ? 0 : -1,
-                  justifyContent: "center",
-                }}
-              >
+              <ListItemIcon sx={{
+                color: "white",
+                minWidth: 0,
+                mr: isMiniDrawer ? 0 : -1,
+                justifyContent: "center",
+              }}>
                 <WarehouseIcon />
               </ListItemIcon>
               {!isMiniDrawer && (
-                <Link href="/port_2">
-                  <ListItemText
+                <>
+                  <ListItemText 
                     primary="آمریت پورت نمبر دو"
                     sx={{ "& .MuiTypography-root": { fontWeight: 500 } }}
                   />
-                </Link>
+                  {openSubMenu === "port2" ? (
+                    <ExpandLess sx={{ ml: -1 }} />
+                  ) : (
+                    <ExpandMore sx={{ ml: -1 }} />
+                  )}
+                </>
               )}
             </ListItemButton>
           </ListItem>
+
+          {!isMiniDrawer && (
+            <Collapse in={openSubMenu === "port2"} timeout="auto">
+              <List component="div" sx={{ pr: 3, mt: 1 }}>
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
+                    <KeyboardArrowLeftIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText 
+                    primary="فورم ایجاد"
+                    onClick={() => router.push("/port_2/create")}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
+                    <KeyboardArrowLeftIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="لیست فورم ها" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          )}
 
           <ListItem disablePadding>
             <ListItemButton
