@@ -227,7 +227,10 @@ export default function Sidebar() {
                     primary="آمریت خط استیشن"
                     sx={{
                       opacity: isMiniDrawer ? 0 : 1,
-                      "& .MuiTypography-root": { fontWeight: 500 },
+                      "& .MuiTypography-root": { 
+                        fontWeight: 500,
+                        textAlign: 'right',
+                      },
                     }}
                   />
                   {openSubMenu === "station" ? (
@@ -242,21 +245,80 @@ export default function Sidebar() {
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "station"} timeout="auto">
-              <List component="div" sx={{ pr: 3, mt: 1 }}>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="فورم ثبت اطلاعات"
-                    onClick={() => router.push("/TrainStation")}
+              <List 
+                component="div" 
+                sx={{ 
+                  py: 0.5, 
+                  mt: 0.5, 
+                  mb: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  borderRadius: 1,
+                }}
+              >
+                <ListItemButton
+                  onClick={() => router.push("/TrainStation")}
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                    mb: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
                   />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    فورم ثبت اطلاعات
+                  </Typography>
                 </ListItemButton>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="لیست فورم ها" />
+                
+                <ListItemButton
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    لیست فورم ها
+                  </Typography>
                 </ListItemButton>
               </List>
             </Collapse>
@@ -286,7 +348,12 @@ export default function Sidebar() {
                 <>
                   <ListItemText 
                     primary="آمریت پورت نمبر یک"
-                    sx={{ "& .MuiTypography-root": { fontWeight: 500 } }}
+                    sx={{ 
+                      "& .MuiTypography-root": { 
+                        fontWeight: 500,
+                        textAlign: 'right',
+                      } 
+                    }}
                   />
                   {openSubMenu === "port1" ? (
                     <ExpandLess sx={{ ml: -1 }} />
@@ -300,21 +367,80 @@ export default function Sidebar() {
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "port1"} timeout="auto">
-              <List component="div" sx={{ pr: 3, mt: 1 }}>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="فورم ایجاد"
-                    onClick={() => router.push("/port_1/create")}
+              <List 
+                component="div" 
+                sx={{ 
+                  py: 0.5, 
+                  mt: 0.5, 
+                  mb: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  borderRadius: 1,
+                }}
+              >
+                <ListItemButton
+                  onClick={() => router.push("/port_1/create")}
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                    mb: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
                   />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    فورم ایجاد
+                  </Typography>
                 </ListItemButton>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="لیست فورم ها" />
+                
+                <ListItemButton
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    لیست فورم ها
+                  </Typography>
                 </ListItemButton>
               </List>
             </Collapse>
@@ -344,7 +470,12 @@ export default function Sidebar() {
                 <>
                   <ListItemText 
                     primary="آمریت پورت نمبر دو"
-                    sx={{ "& .MuiTypography-root": { fontWeight: 500 } }}
+                    sx={{ 
+                      "& .MuiTypography-root": { 
+                        fontWeight: 500,
+                        textAlign: 'right',
+                      } 
+                    }}
                   />
                   {openSubMenu === "port2" ? (
                     <ExpandLess sx={{ ml: -1 }} />
@@ -358,21 +489,80 @@ export default function Sidebar() {
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "port2"} timeout="auto">
-              <List component="div" sx={{ pr: 3, mt: 1 }}>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="فورم ایجاد"
-                    onClick={() => router.push("/port_2/create")}
+              <List 
+                component="div" 
+                sx={{ 
+                  py: 0.5, 
+                  mt: 0.5, 
+                  mb: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  borderRadius: 1,
+                }}
+              >
+                <ListItemButton
+                  onClick={() => router.push("/port_2/create")}
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                    mb: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
                   />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    فورم ایجاد
+                  </Typography>
                 </ListItemButton>
-                <ListItemButton>
-                  <ListItemIcon sx={{ color: "rgb(209 213 219)", minWidth: 32 }}>
-                    <KeyboardArrowLeftIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="لیست فورم ها" />
+                
+                <ListItemButton
+                  sx={{ 
+                    py: 1,
+                    pl: 2,
+                    pr: 4,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    },
+                    borderRadius: 1,
+                    mx: 0.5,
+                  }}
+                >
+                  <KeyboardArrowLeftIcon 
+                    fontSize="small" 
+                    sx={{ 
+                      color: "rgb(209 213 219)",
+                      mr: 'auto',
+                      ml: 1,
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: 'rgb(209 213 219)',
+                      textAlign: 'right',
+                      fontWeight: 400,
+                    }}
+                  >
+                    لیست فورم ها
+                  </Typography>
                 </ListItemButton>
               </List>
             </Collapse>
