@@ -290,6 +290,7 @@ export default function Sidebar() {
                 </ListItemButton>
 
                 <ListItemButton
+                onClick={() => router.push("/TrainStation/Form-list")}
                   sx={{
                     py: 1,
                     pl: 2,

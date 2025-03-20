@@ -21,19 +21,26 @@ const theme = createTheme({
   direction: 'rtl',
   typography: {
     fontFamily: 'inherit',
+    fontSize: 18,
+    
   },
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
           '& .MuiInputLabel-root': {
-            right: 20,
+            right: 27,
+            top: -9,
+            fontSize: 20,
+            fontWeight: 'bold',
             left: 'auto',
             transformOrigin: 'right',
           },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
               textAlign: 'right',
+               borderColor: '#1976d2',
+               height: 50,
             },
           },
         },
@@ -307,10 +314,10 @@ export default function TrainStation() {
                   variant="contained"
                   size="large"
                   sx={{
-                    mt: 2,
+                    mt: 1,
                     bgcolor: 'rgb(59 130 246)',
                     '&:hover': { bgcolor: 'rgb(29 78 216)' },
-                    px: 6,
+                    px: 5,
                   }}
                 >
                   ثبت اطلاعات
