@@ -21,7 +21,8 @@ const theme = createTheme({
   direction: 'rtl',
   typography: {
     fontFamily: 'inherit',
-    fontSize: 18,
+    fontSize: 16,
+    
     
   },
   components: {
@@ -30,7 +31,7 @@ const theme = createTheme({
         root: {
           '& .MuiInputLabel-root': {
             right: 27,
-            top: -9,
+            top: -8,
             fontSize: 20,
             fontWeight: 'bold',
             left: 'auto',
@@ -40,7 +41,7 @@ const theme = createTheme({
             '& fieldset': {
               textAlign: 'right',
                borderColor: '#1976d2',
-               height: 50,
+               height: 52,
             },
           },
         },
@@ -179,7 +180,7 @@ export default function TrainStation() {
                 <TextField
                   fullWidth
                   select
-                  label="محصول"
+                  label="اسم جنس"
                   defaultValue=""
                   InputLabelProps={{
                     shrink: true,
@@ -235,7 +236,7 @@ export default function TrainStation() {
               <Grid item xs={12} md={4}>
                 <TextField
                   fullWidth
-                  label="تعداد واگن"
+                  label="نمبر واگن"
                   type="number"
                   InputProps={{ 
                     inputProps: { min: 1 },
@@ -262,7 +263,7 @@ export default function TrainStation() {
               <Grid item xs={12} md={4}>
                 <TextField
                   fullWidth
-                  label="تعداد بار"
+                  label="  نمبر بارنامه" 
                   type="number"
                   InputProps={{ 
                     inputProps: { min: 1 },
@@ -277,7 +278,7 @@ export default function TrainStation() {
               <Grid item xs={12} md={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
                   <DatePicker
-                    label="تاریخ خروج"
+                    label="تاریخ ورود "
                     format="YYYY/MM/DD"
                     slotProps={{
                       textField: {
@@ -294,7 +295,7 @@ export default function TrainStation() {
               <Grid item xs={12} md={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
                   <DatePicker
-                    label="تاریخ ورود"
+                    label="تاریخ خروج "
                     format="YYYY/MM/DD"
                     slotProps={{
                       textField: {

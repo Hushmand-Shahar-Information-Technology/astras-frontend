@@ -32,7 +32,7 @@ export const NAVIGATION = [
         icon: <DescriptionIcon />,
       },
       {
-        segment: 'TrainStation/list',
+        segment: 'TrainStation/Form-list',
         title: 'لیست فورم ها',
         icon: <DescriptionIcon />,
       },
