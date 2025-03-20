@@ -211,25 +211,15 @@ export default function Sidebar() {
                 justifyContent: isMiniDrawer ? "center" : "initial",
               }}
             >
-              <ListItemIcon
-                sx={{
-                  color: "white",
-                  minWidth: 0,
-                  mr: isMiniDrawer ? 0 : -1,
-                  justifyContent: "center",
-                }}
-              >
-                <TrainIcon />
-              </ListItemIcon>
               {!isMiniDrawer && (
                 <>
                   <ListItemText
                     primary="آمریت خط استیشن"
                     sx={{
                       opacity: isMiniDrawer ? 0 : 1,
-                      "& .MuiTypography-root": { 
+                      "& .MuiTypography-root": {
                         fontWeight: 500,
-                        textAlign: 'right',
+                        textAlign: "right",
                       },
                     }}
                   />
@@ -240,85 +230,97 @@ export default function Sidebar() {
                   )}
                 </>
               )}
+              <ListItemIcon
+                sx={{
+                  color: "white",
+                  minWidth: 0,
+                  mr: isMiniDrawer ? 0 : -1,
+                  justifyContent: "center",
+                }}
+              >
+                <TrainIcon />
+              </ListItemIcon>
             </ListItemButton>
           </ListItem>
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "station"} timeout="auto">
-              <List 
-                component="div" 
-                sx={{ 
-                  py: 0.5, 
-                  mt: 0.5, 
+              <List
+                component="div"
+                sx={{
+                  py: 0.5,
+                  mt: 0.5,
                   mb: 1,
-                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  backgroundColor: "rgba(0, 0, 0, 0.15)",
                   borderRadius: 1,
                 }}
               >
                 <ListItemButton
                   onClick={() => router.push("/TrainStation")}
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                     mb: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
-                      color: "rgb(209 213 219)",
-                      mr: 'auto',
-                      ml: 1,
-                    }}
-                  />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >
                     فورم ثبت اطلاعات
                   </Typography>
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
+                      color: "rgb(209 213 219)",
+                      mr: "auto",
+                      ml: 1,
+                    }}
+                  />
                 </ListItemButton>
-                
+
                 <ListItemButton
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    display: "flex",
+                    flexDirection: "row",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
-                      color: "rgb(209 213 219)",
-                      mr: 'auto',
-                      ml: 1,
-                    }}
-                  />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >
                     لیست فورم ها
                   </Typography>
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
+                      color: "rgb(209 213 219)",
+                      mr: "auto",
+                      ml: 1,
+                    }}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -336,23 +338,15 @@ export default function Sidebar() {
                 justifyContent: isMiniDrawer ? "center" : "initial",
               }}
             >
-              <ListItemIcon sx={{
-                color: "white",
-                minWidth: 0,
-                mr: isMiniDrawer ? 0 : -1,
-                justifyContent: "center",
-              }}>
-                <LocalShippingIcon />
-              </ListItemIcon>
               {!isMiniDrawer && (
                 <>
-                  <ListItemText 
+                  <ListItemText
                     primary="آمریت پورت نمبر یک"
-                    sx={{ 
-                      "& .MuiTypography-root": { 
+                    sx={{
+                      "& .MuiTypography-root": {
                         fontWeight: 500,
-                        textAlign: 'right',
-                      } 
+                        textAlign: "right",
+                      },
                     }}
                   />
                   {openSubMenu === "port1" ? (
@@ -362,80 +356,90 @@ export default function Sidebar() {
                   )}
                 </>
               )}
+              <ListItemIcon
+                sx={{
+                  color: "white",
+                  minWidth: 0,
+                  mr: isMiniDrawer ? 0 : -1,
+                  justifyContent: "center",
+                }}
+              >
+                <LocalShippingIcon />
+              </ListItemIcon>
             </ListItemButton>
           </ListItem>
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "port1"} timeout="auto">
-              <List 
-                component="div" 
-                sx={{ 
-                  py: 0.5, 
-                  mt: 0.5, 
+              <List
+                component="div"
+                sx={{
+                  py: 0.5,
+                  mt: 0.5,
                   mb: 1,
-                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  backgroundColor: "rgba(0, 0, 0, 0.15)",
                   borderRadius: 1,
                 }}
               >
                 <ListItemButton
                   onClick={() => router.push("/port_1/create")}
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                     mb: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
                       color: "rgb(209 213 219)",
-                      mr: 'auto',
+                      mr: "auto",
                       ml: 1,
                     }}
                   />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >
                     فورم ایجاد
                   </Typography>
                 </ListItemButton>
-                
+
                 <ListItemButton
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
                       color: "rgb(209 213 219)",
-                      mr: 'auto',
+                      mr: "auto",
                       ml: 1,
                     }}
                   />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >
@@ -458,23 +462,15 @@ export default function Sidebar() {
                 justifyContent: isMiniDrawer ? "center" : "initial",
               }}
             >
-              <ListItemIcon sx={{
-                color: "white",
-                minWidth: 0,
-                mr: isMiniDrawer ? 0 : -1,
-                justifyContent: "center",
-              }}>
-                <WarehouseIcon />
-              </ListItemIcon>
               {!isMiniDrawer && (
                 <>
-                  <ListItemText 
+                  <ListItemText
                     primary="آمریت پورت نمبر دو"
-                    sx={{ 
-                      "& .MuiTypography-root": { 
+                    sx={{
+                      "& .MuiTypography-root": {
                         fontWeight: 500,
-                        textAlign: 'right',
-                      } 
+                        textAlign: "right",
+                      },
                     }}
                   />
                   {openSubMenu === "port2" ? (
@@ -484,80 +480,90 @@ export default function Sidebar() {
                   )}
                 </>
               )}
+              <ListItemIcon
+                sx={{
+                  color: "white",
+                  minWidth: 0,
+                  mr: isMiniDrawer ? 0 : -1,
+                  justifyContent: "center",
+                }}
+              >
+                <WarehouseIcon />
+              </ListItemIcon>
             </ListItemButton>
           </ListItem>
 
           {!isMiniDrawer && (
             <Collapse in={openSubMenu === "port2"} timeout="auto">
-              <List 
-                component="div" 
-                sx={{ 
-                  py: 0.5, 
-                  mt: 0.5, 
+              <List
+                component="div"
+                sx={{
+                  py: 0.5,
+                  mt: 0.5,
                   mb: 1,
-                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  backgroundColor: "rgba(0, 0, 0, 0.15)",
                   borderRadius: 1,
                 }}
               >
                 <ListItemButton
                   onClick={() => router.push("/port_2/create")}
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                     mb: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
                       color: "rgb(209 213 219)",
-                      mr: 'auto',
+                      mr: "auto",
                       ml: 1,
                     }}
                   />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >
                     فورم ایجاد
                   </Typography>
                 </ListItemButton>
-                
+
                 <ListItemButton
-                  sx={{ 
+                  sx={{
                     py: 1,
                     pl: 2,
                     pr: 4,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)' 
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
                     },
                     borderRadius: 1,
                     mx: 0.5,
                   }}
                 >
-                  <KeyboardArrowLeftIcon 
-                    fontSize="small" 
-                    sx={{ 
+                  <KeyboardArrowLeftIcon
+                    fontSize="small"
+                    sx={{
                       color: "rgb(209 213 219)",
-                      mr: 'auto',
+                      mr: "auto",
                       ml: 1,
                     }}
                   />
                   <Typography
                     sx={{
-                      fontSize: '0.875rem',
-                      color: 'rgb(209 213 219)',
-                      textAlign: 'right',
+                      fontSize: "0.875rem",
+                      color: "rgb(209 213 219)",
+                      textAlign: "right",
                       fontWeight: 400,
                     }}
                   >

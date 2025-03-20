@@ -138,7 +138,9 @@ export default function DashboardLayout({
           <Box key={item.segment}>
             <ListItem disablePadding>
               <ListItemButton
-                onClick={() => !sidebarCollapsed && handleSubMenuToggle(item.segment)}
+                onClick={() =>
+                  !sidebarCollapsed && handleSubMenuToggle(item.segment)
+                }
                 selected={isActive}
                 sx={{
                   minHeight: 48,
@@ -146,35 +148,37 @@ export default function DashboardLayout({
                   py: 1,
                   borderRadius: 1,
                   mb: 0.5,
-                  justifyContent: 'flex-end',
-                  '&.Mui-selected': {
-                    bgcolor: 'rgba(59, 130, 246, 0.8)',
-                    '&:hover': { bgcolor: 'rgba(59, 130, 246, 0.9)' },
+                  justifyContent: "flex-start",
+                  "&.Mui-selected": {
+                    bgcolor: "rgba(59, 130, 246, 0.8)",
+                    "&:hover": { bgcolor: "rgba(59, 130, 246, 0.9)" },
                   },
-                  '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' },
+                  "&:hover": { bgcolor: "rgba(255, 255, 255, 0.08)" },
                 }}
               >
-                <Box sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center',
-                  flex: 1,
-                  justifyContent: 'flex-end'
-                }}>
-                  <Typography sx={{ fontWeight: 500, ml: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    flex: 1,
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  {item.icon}
+                  <Typography sx={{ fontWeight: 500, mr: 2 }}>
                     {item.title}
                   </Typography>
-                  {item.icon}
                 </Box>
               </ListItemButton>
             </ListItem>
-            
+
             {!sidebarCollapsed && (
               <Collapse in={isOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {item.children.map((child: any) => (
                     <ListItemButton
                       key={child.segment}
-                      onClick={() => router.push('/' + child.segment)}
+                      onClick={() => router.push("/" + child.segment)}
                       selected={isActiveRoute(child.segment)}
                       sx={{
                         pr: 4,
@@ -182,30 +186,32 @@ export default function DashboardLayout({
                         minHeight: 40,
                         borderRadius: 1,
                         mx: 1,
-                        '&.Mui-selected': {
-                          bgcolor: 'rgba(59, 130, 246, 0.8)',
-                          '&:hover': { bgcolor: 'rgba(59, 130, 246, 0.9)' },
+                        "&.Mui-selected": {
+                          bgcolor: "rgba(59, 130, 246, 0.8)",
+                          "&:hover": { bgcolor: "rgba(59, 130, 246, 0.9)" },
                         },
-                        '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.08)' },
+                        "&:hover": { bgcolor: "rgba(255, 255, 255, 0.08)" },
                       }}
                     >
-                      <Box sx={{ 
-                        display: 'flex', 
-                        alignItems: 'center',
-                        width: '100%',
-                        justifyContent: 'flex-end'
-                      }}>
-                        <Typography 
-                          sx={{ 
-                            fontSize: '0.9rem', 
-                            fontWeight: 400, 
-                            color: 'rgb(209 213 219)',
-                            ml: 2
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          width: "100%",
+                          justifyContent: "flex-start",
+                        }}
+                      >
+                        {child.icon}
+                        <Typography
+                          sx={{
+                            fontSize: "0.9rem",
+                            fontWeight: 400,
+                            color: "rgb(209 213 219)",
+                            ml: 2,
                           }}
                         >
                           {child.title}
                         </Typography>
-                        {child.icon}
                       </Box>
                     </ListItemButton>
                   ))}
@@ -239,13 +245,13 @@ export default function DashboardLayout({
             <Box sx={{ 
               display: 'flex', 
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'flex-start',
               width: '100%'
             }}>
-              <Typography sx={{ fontWeight: 500, ml: 2 }}>
+              {item.icon}
+              <Typography sx={{ fontWeight: 500, mr: 2 }}>
                 {item.title}
               </Typography>
-              {item.icon}
             </Box>
           </ListItemButton>
         </ListItem>
