@@ -2,22 +2,72 @@ import { FormDataType } from "../models/trainStation";
 import { api } from "../config/apiConfig";
 
 export class TrainStationService {
-  private static readonly ENDPOINT = "/train-station"; 
+  private static readonly ENDPOINT = "/train-stations"; 
 
   // Method to format form data for submission
   static formatFormData(formData: FormDataType) {
     return {
-      transportType: formData.transportType?.name || '',
-      productType: formData.productType?.name || '',
-      company: formData.company?.name || '',
-      product: formData.product?.name || '',
-      fromCountry: formData.fromCountry?.name || '',
-      toCountry: formData.toCountry?.name || '',
-      wagonNumber: formData.wagonNumber,
+      transport_type: formData.transportType ? formData.transportType.name: null,
+      product_type: formData.productType ? {
+        id: formData.productType.id,
+        name: formData.productType.name
+      } : null,
+      company: formData.company ? {
+        id: formData.company.id,
+        name: formData.company.name
+      } : null,
+      product: formData.product ? {
+        id: formData.product.id,
+        name: formData.product.name
+      } : null,
+      from_country: formData.fromCountry ? {
+        id: formData.fromCountry.id,
+        name: formData.fromCountry.name
+      } : null,
+      to_country: formData.toCountry ? {
+        id: formData.toCountry.id,
+        name: formData.toCountry.name
+      } : null,
+      wagon_number: formData.wagonNumber,
       weight: formData.weight,
-      barNumber: formData.barNumber,
-      entryDateTime: formData.entryDateTime,
-      exitDateTime: formData.exitDateTime,
+      bar_number: formData.barNumber,
+      entry_date_time: formData.entryDateTime,
+      exit_date_time: formData.exitDateTime,
+    };
+  }
+
+  // Method to parse API response back to FormDataType
+  static parseResponseToFormData(response: any): FormDataType {
+    return {
+      transportType: response.transport_type ? {
+        id: response.transport_type.id,
+        name: response.transport_type.name
+      } : null,
+      productType: response.product_type ? {
+        id: response.product_type.id,
+        name: response.product_type.name
+      } : null,
+      company: response.company ? {
+        id: response.company.id,
+        name: response.company.name
+      } : null,
+      product: response.product ? {
+        id: response.product.id,
+        name: response.product.name
+      } : null,
+      fromCountry: response.from_country ? {
+        id: response.from_country.id,
+        name: response.from_country.name
+      } : null,
+      toCountry: response.to_country ? {
+        id: response.to_country.id,
+        name: response.to_country.name
+      } : null,
+      wagonNumber: response.wagon_number,
+      weight: response.weight,
+      barNumber: response.bar_number,
+      entryDateTime: response.entry_date_time,
+      exitDateTime: response.exit_date_time,
     };
   }
 
@@ -28,7 +78,7 @@ export class TrainStationService {
       const response = await api.post(this.ENDPOINT, formattedData);
       return {
         success: true,
-        data: response
+        data: this.parseResponseToFormData(response)
       };
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -45,7 +95,12 @@ export class TrainStationService {
       const response = await api.get(this.ENDPOINT, params);
       return {
         success: true,
-        data: response
+        data: {
+          items: response.data.map((item: any) => this.parseResponseToFormData(item)),
+          total: response.total,
+          page: response.page,
+          limit: response.limit
+        }
       };
     } catch (error) {
       console.error('Error fetching records:', error);
@@ -62,7 +117,7 @@ export class TrainStationService {
       const response = await api.get(`${this.ENDPOINT}/${id}`);
       return {
         success: true,
-        data: response
+        data: this.parseResponseToFormData(response)
       };
     } catch (error) {
       console.error('Error fetching record:', error);
@@ -80,7 +135,7 @@ export class TrainStationService {
       const response = await api.put(`${this.ENDPOINT}/${id}`, formattedData);
       return {
         success: true,
-        data: response
+        data: this.parseResponseToFormData(response)
       };
     } catch (error) {
       console.error('Error updating record:', error);
