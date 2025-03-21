@@ -49,8 +49,9 @@ export default function Sidebar() {
     setIsMiniDrawer(!isMiniDrawer);
     if (!isMiniDrawer) {
       setIsProfileMenuOpen(false);
-      setOpenSubMenu(null);
+      setOpenSubMenu(null);  
     }
+    
   };
 
   return (
