@@ -17,15 +17,16 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/fa'; // Import Persian locale
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useState } from "react";
-import { theme } from "../theme/theme";
-import { FormDataType } from "../models/trainStation";
+import { theme } from "../../theme/theme";
+import { FormDataType } from "../../models/trainStation";
 import {
   transportTypes,
   productTypes,
   companies,
   products,
   countries,
-} from "../constants/trainStationData";
+} from "../../constants/trainStationData";
+import { TrainStationService } from "../../services/TrainStation";
 
 export default function TrainStation() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -43,21 +44,30 @@ export default function TrainStation() {
   });
 
   // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Form Data:', {
-      transportType: formData.transportType?.name,
-      productType: formData.productType?.name,
-      company: formData.company?.name,
-      product: formData.product?.name,
-      fromCountry: formData.fromCountry?.name,
-      toCountry: formData.toCountry?.name,
-      wagonNumber: formData.wagonNumber,
-      weight: formData.weight,
-      barNumber: formData.barNumber,
-      entryDateTime: formData.entryDateTime,
-      exitDateTime: formData.exitDateTime,
-    });
+    
+    // Validate form data
+    const { isValid, errors } = TrainStationService.validateFormData(formData);
+    
+    if (!isValid) {
+      // Handle validation errors
+      console.log('Validation errors:', errors);
+      return;
+    }
+
+    // Submit form data
+    const result = await TrainStationService.submitFormData(formData);
+    
+    if (result.success) {
+      // Handle successful submission
+      console.log('Form submitted successfully');
+      // You could add a success message or redirect here
+    } else {
+      // Handle submission error
+      console.error('Form submission failed:', result.error);
+      // You could show an error message to the user here
+    }
   };
 
   return (
