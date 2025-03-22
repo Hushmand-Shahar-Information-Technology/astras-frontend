@@ -307,7 +307,7 @@ export default function TrainStationList() {
             }
             sx={{ direction: 'ltr' }}
           />
-        </Paper>
+         </Paper>
       </ThemeProvider>
     </PageContainer>
   );
