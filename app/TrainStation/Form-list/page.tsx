@@ -32,15 +32,16 @@ const theme = createTheme({
   direction: 'rtl',
   typography: {
     fontFamily: 'inherit',
-    fontSize: 16,
+    fontSize: 18,
   },
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
           '& .MuiInputLabel-root': {
-            right: 27,
-            fontSize: 16,
+            right: 30,
+            fontSize: 18,
+            
             fontWeight: 'bold',
             left: 'auto',
             transformOrigin: 'right',
@@ -79,21 +80,11 @@ export default function TrainStationList() {
       
 
         {/* Search Sections */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid container spacing={3} sx={{ mb: 2 }}>
           {/* Text Search Section */}
           <Grid item xs={12} md={4}>
             <Paper elevation={3} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-              <Typography 
-                variant="h6" 
-                sx={{ 
-                  mb: 2, 
-                  textAlign: 'right',
-                  color: '#1976d2',
-                  fontWeight: 'bold'
-                }}
-              >
-                جستجو
-              </Typography>
+             
               <TextField
                 fullWidth
                 placeholder="جستجو..."
@@ -114,22 +105,9 @@ export default function TrainStationList() {
               />
             </Paper>
           </Grid>
-
           {/* Date Range Search Section */}
           <Grid item xs={12} md={8}>
-            <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
-              <Typography 
-                variant="h6" 
-                sx={{ 
-                  mb: 2, 
-                  textAlign: 'right',
-                  color: '#1976d2',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                }}
-              >
-                جستجو براساس تاریخ
-              </Typography>
+            <Paper elevation={3} sx={{ p: 3, borderRadius: 2,  }}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
                   <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
@@ -146,12 +124,13 @@ export default function TrainStationList() {
                           },
                         },
                       }}
+                      
                     />
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
-                    <DatePicker
+                    <DatePicker 
                       label="تا تاریخ"
                       value={endDate}
                       onChange={(newValue) => setEndDate(newValue)}
@@ -162,9 +141,13 @@ export default function TrainStationList() {
                           InputLabelProps: {
                             shrink: true,
                           },
+                          
                         },
+                        
                       }}
+                      
                     />
+                
                   </LocalizationProvider>
                 </Grid>
               </Grid>

@@ -8,99 +8,76 @@ import {
   Paper,
   Box,
   ThemeProvider,
-  createTheme,
+  Autocomplete,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from 'dayjs';
 import 'dayjs/locale/fa'; // Import Persian locale
-
-// Create RTL theme
-const theme = createTheme({
-  direction: 'rtl',
-  typography: {
-    fontFamily: 'inherit',
-    fontSize: 16,
-    
-    
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiInputLabel-root': {
-            right: 27,
-            top: -8,
-            fontSize: 20,
-            fontWeight: 'bold',
-            left: 'auto',
-            transformOrigin: 'right',
-          },
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              textAlign: 'right',
-               borderColor: '#1976d2',
-               height: 52,
-            },
-          },
-        },
-      },
-    },
-  },
-});
-
-// Static data for dropdowns
-const transportTypes = [
-  { id: 1, name: "ریل" },
-  { id: 2, name: "کانتینر" },
-  { id: 3, name: "واگن" },
-];
-
-const productTypes = [
-  { id: 1, name: "مواد نفتی" },
-  { id: 2, name: "خشکه باب" },
-];
-
-const companies = [
-  { id: 1, name: "شرکت راه آهن افغانستان" },
-  { id: 2, name: "شرکت ترانسپورت کابل" },
-  { id: 3, name: "شرکت لوژستیکی خیبر" },
-  { id: 4, name: "شرکت حمل و نقل هرات" },
-  { id: 5, name: "شرکت ترانسپورت بلخ" },
-  { id: 6, name: "شرکت باربری قندهار" },
-  { id: 7, name: "شرکت لوژستیک پامیر" },
-  { id: 8, name: "شرکت حمل و نقل میوند" },
-  { id: 9, name: "شرکت ترانسپورت سپین غر" },
-  { id: 10, name: "شرکت باربری هندوکش" },
-  { id: 11, name: "شرکت لوژستیک بامیان" },
-  { id: 12, name: "شرکت حمل و نقل مزار" },
-  { id: 13, name: "شرکت ترانسپورت جلال آباد" },
-];
-
-const products = [
-  { id: 1, name: "تیل دیزل" },
-  { id: 2, name: "تیل پطرول" },
-  { id: 3, name: "گاز مایع" },
-  { id: 4, name: "آهن" },
-];
-
-const countries = [
-  { id: 1, name: "افغانستان" },
-  { id: 2, name: "ازبکستان" },
-  { id: 3, name: "ترکمنستان" },
-  { id: 4, name: "تاجیکستان" },
-  { id: 5, name: "ایران" },
-];
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { useState } from "react";
+import { theme } from "../../theme/theme";
+import { FormDataType } from "../../models/trainStation";
+import {
+  transportTypes,
+  productTypes,
+  companies,
+  products,
+  countries,
+} from "../../constants/trainStationData";
+import { TrainStationService } from "../../services/TrainStation";
 
 export default function TrainStation() {
+  const [formData, setFormData] = useState<FormDataType>({
+    transportType: null,
+    productType: null,
+    company: null,
+    product: null,
+    fromCountry: null,
+    toCountry: null,
+    wagonNumber: '',
+    weight: '',
+    barNumber: '',
+    entryDateTime: null,
+    exitDateTime: null,
+  });
+
+  // Handle form submission
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    
+    // Validate form data
+    const { isValid, errors } = TrainStationService.validateFormData(formData);
+    
+    if (!isValid) {
+      // Handle validation errors
+      console.log('Validation errors:', errors);
+      return;
+    }
+
+    // Submit form data
+    const result = await TrainStationService.submitFormData(formData);
+    
+    if (result.success) {
+      // Handle successful submission
+      console.log('Form submitted successfully');
+      // You could add a success message or redirect here
+    } else {
+      // Handle submission error
+      console.error('Form submission failed:', result.error);
+      // You could show an error message to the user here
+    }
+  };
+
   return (
     <PageContainer pageTitle="فورم ثبت اطلاعات">
       <ThemeProvider theme={theme}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2, bgcolor: 'rgb(249 250 251)' }}>
           <Box 
             component="form" 
             noValidate 
+            onSubmit={handleSubmit}
             sx={{ 
               mt: 1,
               '& .MuiFormControl-root': {
@@ -115,121 +92,134 @@ export default function TrainStation() {
                 textAlign: 'right',
                 direction: 'rtl',
               },
+              '& .MuiGrid-container': {
+                mb: 2,
+              },
             }}
           >
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* Transport Type */}
-              <Grid item xs={12} md={4}>
-                <TextField
+              <Grid item xs={12} md={8}>
+                <Autocomplete
                   fullWidth
-                  select
-                  label="نوع ترانسپورت"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {transportTypes.map((type) => (
-                    <MenuItem key={type.id} value={type.id}>
-                      {type.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={transportTypes}
+                  value={formData.transportType}
+                  onChange={(_, newValue) => setFormData({...formData, transportType: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="نوع فورم"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
 
               {/* Product Type */}
               <Grid item xs={12} md={4}>
-                <TextField
+                <Autocomplete
                   fullWidth
-                  select
-                  label="نوع محصول"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {productTypes.map((type) => (
-                    <MenuItem key={type.id} value={type.id}>
-                      {type.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={productTypes}
+                  value={formData.productType}
+                  onChange={(_, newValue) => setFormData({...formData, productType: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="نوع محصول"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
+            </Grid>
 
+            <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* Company */}
               <Grid item xs={12} md={4}>
-                <TextField
+                <Autocomplete
                   fullWidth
-                  select
-                  label="شرکت"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {companies.map((company) => (
-                    <MenuItem key={company.id} value={company.id}>
-                      {company.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={companies}
+                  value={formData.company}
+                  onChange={(_, newValue) => setFormData({...formData, company: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="شرکت"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
 
               {/* Product */}
               <Grid item xs={12} md={4}>
-                <TextField
+                <Autocomplete
                   fullWidth
-                  select
-                  label="اسم جنس"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {products.map((product) => (
-                    <MenuItem key={product.id} value={product.id}>
-                      {product.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={products}
+                  value={formData.product}
+                  onChange={(_, newValue) => setFormData({...formData, product: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="اسم جنس"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
 
               {/* From Country */}
               <Grid item xs={12} md={4}>
-                <TextField
+                <Autocomplete
                   fullWidth
-                  select
-                  label="کشور مبدا"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {countries.map((country) => (
-                    <MenuItem key={country.id} value={country.id}>
-                      {country.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={countries}
+                  value={formData.fromCountry}
+                  onChange={(_, newValue) => setFormData({...formData, fromCountry: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="کشور مبدا"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
+            </Grid>
 
+            <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* To Country */}
               <Grid item xs={12} md={4}>
-                <TextField
+                <Autocomplete
                   fullWidth
-                  select
-                  label="کشور مقصد"
-                  defaultValue=""
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  {countries.map((country) => (
-                    <MenuItem key={country.id} value={country.id}>
-                      {country.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={countries}
+                  value={formData.toCountry}
+                  onChange={(_, newValue) => setFormData({...formData, toCountry: newValue})}
+                  getOptionLabel={(option) => option?.name || ''}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="کشور مقصد"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  )}
+                />
               </Grid>
 
               {/* Number of Wagons */}
@@ -238,6 +228,8 @@ export default function TrainStation() {
                   fullWidth
                   label="نمبر واگن"
                   type="number"
+                  value={formData.wagonNumber}
+                  onChange={(e) => setFormData({...formData, wagonNumber: e.target.value})}
                   InputProps={{ 
                     inputProps: { min: 1 },
                   }}
@@ -253,18 +245,24 @@ export default function TrainStation() {
                   fullWidth
                   label="وزن (تن)"
                   type="text"
+                  value={formData.weight}
+                  onChange={(e) => setFormData({...formData, weight: e.target.value})}
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
               </Grid>
+            </Grid>
 
+            <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* Number of Bars */}
               <Grid item xs={12} md={4}>
                 <TextField
                   fullWidth
                   label="  نمبر بارنامه" 
                   type="number"
+                  value={formData.barNumber}
+                  onChange={(e) => setFormData({...formData, barNumber: e.target.value})}
                   InputProps={{ 
                     inputProps: { min: 1 },
                   }}
@@ -274,12 +272,15 @@ export default function TrainStation() {
                 />
               </Grid>
 
-              {/* Date Pickers */}
-              <Grid item xs={12} md={6}>
+              {/* Date/Time Pickers */}
+              <Grid item xs={12} md={4}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
-                  <DatePicker
-                    label="تاریخ ورود "
-                    format="YYYY/MM/DD"
+                  <DateTimePicker
+                    label="تاریخ و ساعت ورود"
+                    value={formData.entryDateTime}
+                    onChange={(newValue) => setFormData({...formData, entryDateTime: newValue})}
+                    format="YYYY/MM/DD HH:mm"
+                    ampm={false}
                     slotProps={{
                       textField: {
                         fullWidth: true,
@@ -291,12 +292,14 @@ export default function TrainStation() {
                   />
                 </LocalizationProvider>
               </Grid>
-
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
-                  <DatePicker
-                    label="تاریخ خروج "
-                    format="YYYY/MM/DD"
+                  <DateTimePicker
+                    label="تاریخ و ساعت خروج"
+                    value={formData.exitDateTime}
+                    onChange={(newValue) => setFormData({...formData, exitDateTime: newValue})}
+                    format="YYYY/MM/DD HH:mm"
+                    ampm={false}
                     slotProps={{
                       textField: {
                         fullWidth: true,
@@ -308,17 +311,20 @@ export default function TrainStation() {
                   />
                 </LocalizationProvider>
               </Grid>
-
-              {/* Submit Button */}
+            </Grid>
+            <Grid container spacing={3} sx={{  }}>
               <Grid item xs={12} sx={{ textAlign: 'left' }}>
                 <Button
+                  type="submit"
                   variant="contained"
                   size="large"
                   sx={{
-                    mt: 1,
                     bgcolor: 'rgb(59 130 246)',
                     '&:hover': { bgcolor: 'rgb(29 78 216)' },
                     px: 5,
+                    py: 1.5,
+                    fontSize: '1.1rem',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 >
                   ثبت اطلاعات

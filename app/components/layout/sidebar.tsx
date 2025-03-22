@@ -67,6 +67,19 @@ export default function Sidebar() {
           direction: "rtl",
           borderLeft: "none",
           overflowX: "hidden",
+          "&::-webkit-scrollbar": {
+            width: 0,
+            display: "none"
+          },
+          "&::-webkit-scrollbar-track": {
+            display: "none"
+          },
+          "&::-webkit-scrollbar-thumb": {
+            display: "none"
+          },
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          "-ms-overflow-style": "none",
           transition: (theme) =>
             theme.transitions.create(["width", "margin"], {
               easing: theme.transitions.easing.easeInOut,
@@ -85,6 +98,20 @@ export default function Sidebar() {
               easing: theme.transitions.easing.easeInOut,
               duration: theme.transitions.duration.standard,
             }),
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            width: 0,
+            display: "none"
+          },
+          "&::-webkit-scrollbar-track": {
+            display: "none"
+          },
+          "&::-webkit-scrollbar-thumb": {
+            display: "none"
+          },
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          "-ms-overflow-style": "none",
         }}
       >
         <Box
@@ -122,6 +149,7 @@ export default function Sidebar() {
             </Typography>
           )}
           <ListItemButton
+
             onClick={toggleDrawerSize}
             sx={{
               minWidth: 32,
@@ -131,6 +159,7 @@ export default function Sidebar() {
               p: 0,
               justifyContent: "center",
               position: "absolute",
+              backgroundColor: "blue",
               left: 0,
               top: "50%",
               transform: "translateY(-50%)",
